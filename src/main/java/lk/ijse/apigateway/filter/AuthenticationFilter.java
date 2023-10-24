@@ -1,13 +1,20 @@
 package lk.ijse.apigateway.filter;
 
-import lk.ijse.apigateway.feign.UserApi;
 import lk.ijse.apigateway.util.JwtUtil;
-import lombok.RequiredArgsConstructor;
+import lk.ijse.apigateway.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
+import org.springframework.web.server.ServerWebExchange;
+
+import java.net.URI;
+import java.util.Optional;
+
+import static java.util.stream.DoubleStream.builder;
+import static org.springframework.web.reactive.function.server.RequestPredicates.queryParam;
 
 /**
  * @author Lahiru Dilshan
@@ -43,20 +50,19 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
                 }
                 try {
 
+                    System.out.println(exchange.getRequest().getURI());
                     String s = jwtUtil.extractRole(token);
                     System.out.println(s);
                     jwtUtil.validateToken(token);
 
                 }catch (Exception e){
+
                     throw new RuntimeException("Un authorized access to application");
                 }
             }
-            System.out.println("wadawdwad");
             return chain.filter(exchange);
         });
     }
 
-    public static class Config{
-
-    }
+    public static class Config{ }
 }

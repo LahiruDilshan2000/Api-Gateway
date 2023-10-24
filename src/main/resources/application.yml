@@ -29,18 +29,26 @@ spring:
           uri: lb://HOTEL-SERVICE
           predicates:
             - Path=/nexttravel/api/v1/hotel/**
+          filters:
+            - AuthenticationFilter
 
         - id: guide-service
           uri: lb://GUIDE-SERVICE
           predicates:
             - Path=/nexttravel/api/v1/guide/**
+          filters:
+            - AuthenticationFilter
 
         - id: user-service
           uri: lb://USER-SERVICE
           predicates:
             - Path=/nexttravel/api/v1/user/**
+          filters:
+            - AuthenticationFilter
 
         - id: package-service
           uri: lb://PACKAGE-SERVICE
           predicates:
             - Path=/nexttravel/api/v1/package/**
+          filters:
+            - AuthenticationFilter
