@@ -52,3 +52,10 @@ spring:
             - Path=/nexttravel/api/v1/package/**
           filters:
             - AuthenticationFilter
+
+        - id: package-service
+          uri: lb://FINANCIAL-SERVICE
+          predicates:
+            - Path=/nexttravel/api/v1/financial/**
+          filters:
+            - AuthenticationFilter
