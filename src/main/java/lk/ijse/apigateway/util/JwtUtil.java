@@ -1,6 +1,5 @@
 package lk.ijse.apigateway.util;
 
-import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -19,21 +18,6 @@ public class JwtUtil {
 
     @Value("${secret-key}")
     private String SECRET_KEY;
-
-    public String extractRole(String token){
-
-        return  (String) extractAllClaims(token).get("role");
-    }
-
-    private Claims extractAllClaims(String token) {
-
-        return Jwts
-                .parserBuilder()
-                .setSigningKey(getSignInKey())
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
-    }
 
     public void validateToken(final String token){
 
